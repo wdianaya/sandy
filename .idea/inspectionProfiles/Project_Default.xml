@@ -1,0 +1,44 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="17">
+            <item index="0" class="java.lang.String" itemvalue="pywin32-ctypes" />
+            <item index="1" class="java.lang.String" itemvalue="certifi" />
+            <item index="2" class="java.lang.String" itemvalue="conda" />
+            <item index="3" class="java.lang.String" itemvalue="Bottleneck" />
+            <item index="4" class="java.lang.String" itemvalue="clyent" />
+            <item index="5" class="java.lang.String" itemvalue="navigator-updater" />
+            <item index="6" class="java.lang.String" itemvalue="pycurl" />
+            <item index="7" class="java.lang.String" itemvalue="pyodbc" />
+            <item index="8" class="java.lang.String" itemvalue="conda-build" />
+            <item index="9" class="java.lang.String" itemvalue="menuinst" />
+            <item index="10" class="java.lang.String" itemvalue="pycosat" />
+            <item index="11" class="java.lang.String" itemvalue="fastcache" />
+            <item index="12" class="java.lang.String" itemvalue="anaconda-client" />
+            <item index="13" class="java.lang.String" itemvalue="conda-verify" />
+            <item index="14" class="java.lang.String" itemvalue="anaconda-navigator" />
+            <item index="15" class="java.lang.String" itemvalue="sip" />
+            <item index="16" class="java.lang.String" itemvalue="mkl-service" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyStubPackagesAdvertiser" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="PyQt5-stubs==5.15.6.0" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="PyQt5.QtWidgets.QGraphicsScence" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
