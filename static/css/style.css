@@ -1,0 +1,54 @@
+.title {
+    background-color: #94979c;
+}
+
+.cell {
+    background-color: #adc0e0;
+}
+
+.title, .cell {
+    padding: 8px;
+    text-align: center;
+}
+
+.not-finished {
+    background-color: #e0adce;
+}
+
+.item {
+    margin: 40px 20px 10px 20px;
+    border: 2px solid gray;
+}
+
+.buttons {
+    margin: 1px 1px 1px 20px;
+}
+
+.action-title {
+    padding: 10px 20px;
+}
+
+.mission {
+    background-color: #eaeaea;
+    padding: 8px;
+}
+
+.mission-user{
+    margin: 12px 0;
+}
+
+.mission-user a{
+    color: black;
+    font-weight: 700;
+}
+.mission-user a:hover{
+    text-decoration: none;
+    text-shadow: 0px 0px 20px #4c4040;
+}
+
+.slogan {
+    color: #cccccc;
+    margin: 7px;
+}
+
+.red {color: #ff3721}

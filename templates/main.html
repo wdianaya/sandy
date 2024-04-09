@@ -1,9 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends "base.html" %}
 
-</head>
-<body>
-    <img src="{{ image }}">
-</body>
-</html>
+{% block content %}
+<h1>Построение графика</h1>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.function.label }}<br>
+        {{ form.function(class="form-control") }}<br>
+        {% for error in form.function.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+</form>
+{% if image %}
+    <h2>График {{title}}</h2>
+    <img src="{{ image }}" alt="Graph">
+{% endif %}
+{% endblock %}
