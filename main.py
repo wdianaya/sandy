@@ -19,6 +19,9 @@ def mainpage():
     if request.method == 'POST':
         try:
             function = request.form['function']  # так берётся текст введенной функции
+            start_dot = request.form['start_dot']  # начальная
+            end_dot = request.form['end_dot']  # конечная
+            amount = request.form['count']  # количество точек
             if function:
                 fig = Figure()
                 curve = fig.add_subplot(1, 1, 1)
