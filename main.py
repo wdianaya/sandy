@@ -7,6 +7,7 @@ from forms.main_form import MainForm
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 from math import *
+import mpld3
 
 
 app = Flask(__name__)
@@ -19,6 +20,9 @@ def mainpage():
     if request.method == 'POST':
         try:
             function = request.form['function']  # так берётся текст введенной функции
+            # start_dot = request.form['start_dot']  # начальная
+            # end_dot = request.form['end_dot']  # конечная
+            # amount = request.form['count']  # количество точек
             if function:
                 fig = Figure()
                 curve = fig.add_subplot(1, 1, 1)
@@ -38,6 +42,12 @@ def mainpage():
                     x += x_delta
 
                 curve.plot(args_value, func_value, "ro-")
+                curve.grid(True)
+
+                html_str = mpld3.fig_to_html(fig)
+                Html_file = open("index.html", "w")
+                Html_file.write(html_str)
+                Html_file.close()
 
                 spectre_fig = Figure()
                 spectre = spectre_fig.add_subplot(1, 1, 1)
@@ -45,22 +55,12 @@ def mainpage():
 
                 spectre.plot(abs(y), "ro-")
 
+                html_spec = mpld3.fig_to_html(spectre_fig)
+                Html_spec = open("spec.html", "w")
+                Html_spec.write(html_str)
+                Html_spec.close()
 
-                # Convert plot to PNG image
-                pngImage = io.BytesIO()
-                FigureCanvas(fig).print_png(pngImage)
-
-                pngImage_spectre = io.BytesIO()
-                FigureCanvas(spectre_fig).print_png(pngImage_spectre)
-
-                # Encode PNG image to base64 string
-                pngImageB64String = "data:image/png;base64,"
-                pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
-
-                pngImage_spectreB64String = "data:image/png;base64,"
-                pngImage_spectreB64String += base64.b64encode(pngImage_spectre.getvalue()).decode('utf8')
-
-                return render_template("main.html", title=function, image=pngImageB64String, image_spectre=pngImage_spectreB64String, form=form)
+                return render_template("main.html", title=function, html_fig=html_str, html_spec=html_spec, form=form)
         except Exception:
             raise Exception
     return render_template("main.html", image=None, form=form)

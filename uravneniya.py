@@ -1,22 +1,24 @@
 import math
+from sympy import symbols, Eq, solve, sympify
 
-def poln_kvadr_uravn(a, b, c):
-    discr = (b ** 2) - (4 * a * c)
+def system_double(urs):
+    eq_urs = []
+    x, y = symbols('x y')
+    for elem in urs:
+        eq_urs.append(Eq(sympify(elem.split('=')[0]), sympify(elem.split('=')[1])))
+    return solve(eq_urs, (x, y))
 
-    x1 = 0
-    x2 = 0
+def system_triple(urs):
+    eq_urs = []
+    x, y, z = symbols('x y z')
+    for elem in urs:
+        eq_urs.append(Eq(sympify(elem.split('=')[0]), sympify(elem.split('=')[1])))
+    return solve(eq_urs, (x, y, z))
 
-    if discr > 0:
-        x1 = -b + math.sqrt(discr) / (2 * a)
-        x2 = (-b - math.sqrt(discr) / (2 * a))
-    elif discr == 0:
-        x1 = -b + math.sqrt(discr) / (2 * a)
-        x2 = x1
-    elif discr < 0:
-        x1 = 'нет корней'
-        x2 = x1
+def uravn(ur):
+    x = symbols('x')
+    uravn = Eq(sympify(ur.split('=')[0]), sympify(ur.split('=')[1]))
+    return solve(uravn, (x))
 
-    return x1, x2
-
-
+print(uravn('x**4 + x ** 3 + x**2 + x=30'))
 
