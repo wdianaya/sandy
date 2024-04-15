@@ -36,7 +36,7 @@ def mainpage():
             # end_dot = request.form['end_dot']  # конечная
             # amount = request.form['count']  # количество точек
             if function:
-                fig = Figure()
+                fig = Figure(figsize=(15, 7.78))
                 curve = fig.add_subplot(1, 1, 1)
                 graph_dot_count = 100
                 func_value = [0] * graph_dot_count
@@ -61,7 +61,7 @@ def mainpage():
                 Html_file.write(html_str)
                 Html_file.close()
 
-                spectre_fig = Figure()
+                spectre_fig = Figure(figsize=(3, 3))
                 spectre = spectre_fig.add_subplot(1, 1, 1)
                 y = calc_fft.calc_fft(func_value)
 
