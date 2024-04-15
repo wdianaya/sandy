@@ -2,6 +2,7 @@ import io
 import base64
 import calc_fft
 
+from data import db_session
 from flask import render_template, Flask, request
 from forms.main_form import MainForm
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
@@ -13,8 +14,19 @@ import mpld3
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
+
+def main():
+    # db_session.global_init("db/sandy.db")
+    # db_sess = db_session.create_session()
+    app.run(port=8000, host='127.0.0.1')
+
+
 @app.route("/", methods=['GET', 'POST'])
-@app.route("/argentum")
+def home():
+    return render_template("base.html")
+
+
+@app.route("/graf", methods=['GET', 'POST'])
 def mainpage():
     form = MainForm()
     if request.method == 'POST':
@@ -66,6 +78,7 @@ def mainpage():
     return render_template("main.html", image=None, form=form)
 
 if __name__ == '__main__':
-   app.run(port=8000, host='127.0.0.1')
+    main()
+
 # In the image.html jinja2 template use the following <img> to add the plot:
 # <img src="{{ image }}"/>
