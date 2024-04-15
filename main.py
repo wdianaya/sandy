@@ -5,6 +5,7 @@ from data import db_session
 from forms.login import LoginForm
 from forms.register import RegisterForm
 from data.users import User
+from data.post import Post
 from flask import Flask, render_template, redirect, request, make_response, abort, jsonify
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from forms.main_form import MainForm
@@ -28,13 +29,25 @@ def main():
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template("base.html")
+    session = db_session.create_session()
+    posts = session.query(Post).all()
+    return render_template("index.html", title='Математический форум', posts=posts)
 
 
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = db_session.create_session()
     return db_sess.query(User).get(user_id)
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
+
+
+@app.errorhandler(400)
+def bad_request(_):
+    return make_response(jsonify({'error': 'Bad Request'}), 400)
 
 
 @app.route('/logout')

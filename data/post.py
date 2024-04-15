@@ -11,9 +11,7 @@ class Post(SqlAlchemyBase, SerializerMixin):
     __tablename__ = 'posts'
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
-    team_leader = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("username.id"))
+    team_leader = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
     user = orm.relationship('User')
-    text_post = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    work_size = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
-    collaborators = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    posts = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     start_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)

@@ -12,6 +12,8 @@ class Comments(SqlAlchemyBase, SerializerMixin):
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     post_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("posts.id"))
-    posts = orm.relationship('Post')
+    user_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("users.id"))
+    post = orm.relationship('Post')
+    user = orm.relationship('User')
     text_com = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     start_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)

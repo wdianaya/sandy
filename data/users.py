@@ -9,13 +9,13 @@ from sqlalchemy_serializer import SerializerMixin
 
 
 class User(SqlAlchemyBase, UserMixin, SerializerMixin):
-    __tablename__ = 'username'
+    __tablename__ = 'users'
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     username = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     email = sqlalchemy.Column(sqlalchemy.String, index=True, unique=True, nullable=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    posts = orm.relationship("Post", back_populates='username')
+    post = orm.relationship("Post", back_populates='user')
 
     def __repr__(self):
         return f'<User> {self.id} {self.name} {self.email}'
