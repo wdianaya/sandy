@@ -9,7 +9,6 @@ body {
 
 #block-body {
   width: 100%; /*сделать шапку на всю длину сайта*/
-  margin: 5px auto;
   height: auto; }
 
 header {
