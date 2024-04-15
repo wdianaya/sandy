@@ -8,7 +8,6 @@
     <link rel="stylesheet"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   </head>
   <body>
     <div id="block-body">
@@ -28,13 +27,9 @@
           </ul>
         </div>
         <div class="block-top-auth">
-          {% if current_user.is_authenticated %}
-          <p><a class="nikname" href="/logout" title="log out">{{ current_user.username }}</a></p>
-          {% else %}
 
           <p><a href="/register" >Регистрация</a></p>  <!--class="btn btn-outline-success"-->
           <p><a href="/login" >Вход</a></p>  <!--class="btn btn-outline-secondary"-->
-          {% endif %}
         </div>
       </header>
     </div>
@@ -42,7 +37,7 @@
       {% block content %}{% endblock %}
     </main>
     <footer class="page-footer">
-      <p><b>© All Rights Reserved. SANDY</b></p>
+      <p><b>© All Rights Reserved. SAN DY</b></p>
     </footer>
 
 
