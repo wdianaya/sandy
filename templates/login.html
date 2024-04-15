@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="wrapper">
+    <form action="" method="post">
+      {{ form.hidden_tag() }}
+      <h1>Login</h1>
+      <div class="input-box">
+        {{ form.email(class="input"+form.email.name, type="email", placeholder="Email") }}
+            {% for error in form.email.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        <i class='bx bxs-envelope'></i>
+      </div>
+      <div class="input-box">
+        {{ form.password(class="input"+form.password.name, type="password", placeholder="Password") }}
+            {% for error in form.email.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        <i class='bx bxs-lock-alt' ></i>
+      </div>
+      <div class="remember-forgot">
+        <label><input type="checkbox">Remember me</label>
+      </div>
+      {{ form.submit(type="submit", class="btn") }}
+      <div>{{ message }}</div>
+
+      <div class="register-link">
+        <p>Don't have an account? <a
+          href="/register">Register</a></p>
+      </div>
+    </form>
+  </div>
+
+{% endblock %}
