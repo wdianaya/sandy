@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="background: #f4a460; width: 300px; height: 800px; border: 0px; margin: 0px; float: left">
+<h1>Построение графика</h1>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.function.label }}<br>
+        {{ form.function(class="form-control") }}<br>
+        {% for error in form.function.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+</form>
+    {{ html_spec | safe }}
+</div>
+<div style="border: 0px; margin: 0px">
+{% if html_fig %}
+    {{ html_fig | safe }}
+</div>
+{% endif %}
+{% endblock %}
