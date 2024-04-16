@@ -57,6 +57,11 @@ def logout():
     return redirect("/")
 
 
+@app.route("/raspr", methods=['GET', 'POST'])
+def raspredelen():
+    return render_template("raspr.html")
+
+
 @app.route("/graf", methods=['GET', 'POST'])
 def mainpage():
     form = MainForm()

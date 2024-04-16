@@ -1,27 +1,58 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div style="background: #f4a460; width: 300px; height: 800px; border: 0px; margin: 0px; float: left"
+<div style="background: #f2e8c9; width: 300px; height: 900px; border: 0px; margin: 0px; display: flex"
      xmlns="http://www.w3.org/1999/html">
-    <h1>Построение графика</h1>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.function.label }}<br>
-            {{ form.function(class="form-control") }}<br>
-            {% for error in form.function.errors %}
+    <div>
+        <h1>Построение графика</h1>
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.function.label }}<br>
+                {{ form.function(class="form-control") }}<br>
+                {% for error in form.function.errors %}
+                    <p class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </p>
+                {% endfor %}
+            </p>
+                <p>
+            {{ form.start_dot.label }}<br>
+            {{ form.start_dot(class="form-control") }}<br>
+            {% for error in form.start_dot.errors %}
                 <p class="alert alert-danger" role="alert">
                     {{ error }}
                 </p>
             {% endfor %}
-        </p>
-        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-    </form>
-    {{ html_spec | safe }}
-</div>
-<div>
-{% if html_fig %}
-    {{ html_fig | safe }}
+            </p>
+            <p>
+            {{ form.end_dot.label }}<br>
+            {{ form.end_dot(class="form-control") }}<br>
+            {% for error in form.end_dot.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+            </p>
+            <p>
+            {{ form.count.label }}<br>
+            {{ form.count(class="form-control") }}<br>
+            {% for error in form.count.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+            {% endfor %}
+            </p>
+
+            <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+            {{ html_spec | safe }}
+        </form>
+
+    </div>
+    <div>
+        {% if html_fig %}
+            {{ html_fig | safe }}
+    </div>
 </div>
 {% endif %}
 {% endblock %}
