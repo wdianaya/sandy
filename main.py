@@ -66,17 +66,62 @@ def raspredelen():
         raspr_name = str(request.form['raspr_name'])
         rfig = Figure(figsize=(15, 7.78))
         rasp = rfig.add_subplot(1, 1, 1)
-        if raspr_name == 'равномерное':
+        hfig = Figure(figsize=(3, 3))
+        hist = hfig.add_subplot(1, 1, 1)
+        if raspr_name.lower() == 'равномерное':
             y = rand_signal.rand_uniform(dot_count)
             rasp.plot(y, "ro-")
             rasp.grid(True)
-        
+            hist.hist(y)
+        elif raspr_name.lower()== 'треугольное':
+            y = rand_signal.rand_triang(dot_count)
+            rasp.plot(y, "ro-")
+            rasp.grid(True)
+            hist.hist(y)
+        elif raspr_name.lower()== 'бета':
+            y = rand_signal.rand_beta(dot_count)
+            rasp.plot(y, "ro-")
+            rasp.grid(True)
+            hist.hist(y)
+        elif raspr_name.lower()== 'экспоненциальное':
+            y = rand_signal.rand_expo(dot_count)
+            rasp.plot(y, "ro-")
+            rasp.grid(True)
+            hist.hist(y)
+        elif raspr_name.lower()== 'гамма':
+            y = rand_signal.rand_gamma(dot_count)
+            rasp.plot(y, "ro-")
+            rasp.grid(True)
+            hist.hist(y)
+        elif raspr_name.lower()== 'нормальное':
+            y = rand_signal.rand_gauss(dot_count)
+            rasp.plot(y, "ro-")
+            rasp.grid(True)
+            hist.hist(y)
+        elif raspr_name.lower()== 'логнормальное':
+            y = rand_signal.rand_lognorm(dot_count)
+            rasp.plot(y, "ro-")
+            rasp.grid(True)
+            hist.hist(y)
+        elif raspr_name.lower()== 'парето':
+            y = rand_signal.rand_pareto(dot_count)
+            rasp.plot(y, "ro-")
+            rasp.grid(True)
+            hist.hist(y)
+
+
+
         html_rand = mpld3.fig_to_html(rfig)
-        Html_rand = open("spec.html", "w")
+        Html_rand = open("raspr.html", "w")
         Html_rand.write(html_rand)
         Html_rand.close()
 
-        return render_template("raspr.html", html_rand=html_rand, form=form)
+        html_hist = mpld3.fig_to_html(hfig)
+        Html_hist = open("raspr.html", "w")
+        Html_hist.write(html_hist)
+        Html_hist.close()
+
+        return render_template("raspr.html", html_rand=html_rand, html_hist=html_hist, form=form)
     return render_template("raspr.html", image=None, form=form)
 
 @app.route("/graf", methods=['GET', 'POST'])
