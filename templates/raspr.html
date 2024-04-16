@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-
+<form action="" method="post">
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.raspr_dot_count.label }}<br>
+                {{ form.raspr_dot_count(class="form-control") }}<br>
+                {% for error in form.raspr_dot_count.errors %}
+                    <p class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </p>
+                {% endfor %}
+            </p>
+                <p>
+</form>
 {% endblock %}

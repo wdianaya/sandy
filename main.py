@@ -13,7 +13,7 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 from math import *
 import mpld3
-
+from forms.raspr import RasprForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -59,7 +59,10 @@ def logout():
 
 @app.route("/raspr", methods=['GET', 'POST'])
 def raspredelen():
-    return render_template("raspr.html")
+    form = RasprForm()
+    if request.method == 'POST':
+        dot_count=request.form['raspr_dot_count']
+    return render_template("raspr.html", form=form)
 
 
 @app.route("/graf", methods=['GET', 'POST'])
@@ -68,17 +71,17 @@ def mainpage():
     if request.method == 'POST':
         try:
             function = request.form['function']  # так берётся текст введенной функции
-            # start_dot = request.form['start_dot']  # начальная
-            # end_dot = request.form['end_dot']  # конечная
-            # amount = request.form['count']  # количество точек
+            start_dot = request.form['start_dot']  # начальная
+            end_dot = request.form['end_dot']  # конечная
+            amount = request.form['count']  # количество точек
             if function:
                 fig = Figure(figsize=(15, 7.78))
                 curve = fig.add_subplot(1, 1, 1)
-                graph_dot_count = 100
+                graph_dot_count = int(amount)
                 func_value = [0] * graph_dot_count
                 args_value = [0] * graph_dot_count
-                x_start = 0
-                x_end = 10
+                x_start = float(start_dot)
+                x_end = float(end_dot)
                 x_delta = (x_end - x_start) / graph_dot_count
                 x = x_start
                 for i in range(graph_dot_count):
