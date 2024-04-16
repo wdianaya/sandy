@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a58db9b-763b-451d-b660-704ad21174ef" name="Changes" comment="выравнивание по центру">
-      <change afterPath="$PROJECT_DIR$/forms/raspr.py" afterDir="false" />
+    <list default="true" id="9a58db9b-763b-451d-b660-704ad21174ef" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/forms/raspr.py" beforeDir="false" afterPath="$PROJECT_DIR$/forms/raspr.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spec.html" beforeDir="false" afterPath="$PROJECT_DIR$/spec.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/raspr.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/raspr.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,6 +31,9 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Statigraph" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -175,7 +176,14 @@
       <option name="project" value="LOCAL" />
       <updated>1713197188618</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="ебой пампидап тутуту">
+      <created>1713261153926</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1713261153926</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -197,6 +205,7 @@
     <MESSAGE value="логин и пароль" />
     <MESSAGE value="стык" />
     <MESSAGE value="выравнивание по центру" />
-    <option name="LAST_COMMIT_MESSAGE" value="выравнивание по центру" />
+    <MESSAGE value="ебой пампидап тутуту" />
+    <option name="LAST_COMMIT_MESSAGE" value="ебой пампидап тутуту" />
   </component>
 </project>

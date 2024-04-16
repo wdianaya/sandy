@@ -14,6 +14,7 @@ from matplotlib.figure import Figure
 from math import *
 import mpld3
 from forms.raspr import RasprForm
+import rand_signal
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -61,9 +62,22 @@ def logout():
 def raspredelen():
     form = RasprForm()
     if request.method == 'POST':
-        dot_count=request.form['raspr_dot_count']
-    return render_template("raspr.html", form=form)
+        dot_count = int(request.form['raspr_dot_count'])
+        raspr_name = str(request.form['raspr_name'])
+        rfig = Figure(figsize=(15, 7.78))
+        rasp = rfig.add_subplot(1, 1, 1)
+        if raspr_name == 'равномерное':
+            y = rand_signal.rand_uniform(dot_count)
+            rasp.plot(y, "ro-")
+            rasp.grid(True)
+        
+        html_rand = mpld3.fig_to_html(rfig)
+        Html_rand = open("spec.html", "w")
+        Html_rand.write(html_rand)
+        Html_rand.close()
 
+        return render_template("raspr.html", html_rand=html_rand, form=form)
+    return render_template("raspr.html", image=None, form=form)
 
 @app.route("/graf", methods=['GET', 'POST'])
 def mainpage():

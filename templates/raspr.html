@@ -1,17 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form action="" method="post">
-            {{ form.hidden_tag() }}
-            <p>
-                {{ form.raspr_dot_count.label }}<br>
-                {{ form.raspr_dot_count(class="form-control") }}<br>
-                {% for error in form.raspr_dot_count.errors %}
-                    <p class="alert alert-danger" role="alert">
-                        {{ error }}
+<div style="background: #f2e8c9; width: 300px; height: 900px; border: 0px; margin: 0px; display: flex"
+     xmlns="http://www.w3.org/1999/html">
+    <div>
+        <h1>График распределения</h1>
+        <form action="" method="post">
+                    {{ form.hidden_tag() }}
+                    <p>
+                        {{ form.raspr_dot_count.label }}<br>
+                        {{ form.raspr_dot_count(class="form-control") }}<br>
+                        {% for error in form.raspr_dot_count.errors %}
+                            <p class="alert alert-danger" role="alert">
+                                {{ error }}
+                            </p>
+                    {% endfor %}
                     </p>
-                {% endfor %}
-            </p>
                 <p>
-</form>
+                        {{ form.raspr_name.label }}<br>
+                        {{ form.raspr_name(class="form-control") }}<br>
+                        {% for error in form.raspr_name.errors %}
+                            <p class="alert alert-danger" role="alert">
+                                {{ error }}
+                            </p>
+            {% endfor %}
+            </p>
+            <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+            {{ html_rand | safe }}
+        </form>
+    </div>
+</div>
 {% endblock %}
