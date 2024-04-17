@@ -17,3 +17,5 @@ class Comments(SqlAlchemyBase, SerializerMixin):
     user = orm.relationship('User')
     text_com = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     start_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
+
+

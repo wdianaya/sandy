@@ -206,6 +206,7 @@ def reqister():
                                    message="Пароли не совпадают")
         db_sess = db_session.create_session()
         if db_sess.query(User).filter(User.email == form.email.data).first():
+            
             return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
@@ -256,8 +257,11 @@ def adding_post():
         else:
             ok, message = True, ""
         if ok:
-            flash('Пост был опубликован!', 'success')
+            flash('Пост был опубликован!', 'alert-success')
             return redirect('/')
+        else:
+            flash('Произошла ошибка при создании поста. Попробуйте ещё раз', 'alert-danger')
+            return
         # image_file = url_for('static', filename=f'img/post_images/' + current_user.image_file) - для аватарок
     return render_template("create_post.html", title="New Post", form=form) # image_file=image_file
 
@@ -272,16 +276,20 @@ def look_post(post_id):
         abort(404)
 
     if request.method == 'POST' and form.validate_on_submit():
-        user_id = current_user.id
-        comment = Comments()
-        comment.user_id = user_id
-        comment.post_id = post_id
-        comment.text_com = form.text.data
-        comment.start_date = datetime.datetime.now()
-        db_sess.add(comment)
-        db_sess.commit()
-        flash('Комментарий к посту был добавлен', "success")
-        return redirect(url_for('look_post', post_id=post.id))
+        if current_user.is_authenticated:
+            user_id = current_user.id
+            comment = Comments()
+            comment.user_id = user_id
+            comment.post_id = post_id
+            comment.text_com = form.text.data
+            comment.start_date = datetime.datetime.now()
+            db_sess.add(comment)
+            db_sess.commit()
+            flash('Комментарий к посту был добавлен', "alert-success")
+            return redirect(url_for('look_post', post_id=post.id))
+        flash('Вы должны быть авторизированы, чтобы оставлять вопросы на SANDY', "alert-warning")
+        return redirect('/register')
+
     # image_file = url_for('static',
     #                      filename=f'profile_pics/' + 'users/' + post.author.username + '/post_images/' + post.image_post)
     return render_template('post.html', title=post.title, post=post,
@@ -294,7 +302,8 @@ def delete_post(post_id):
     db_sess = db_session.create_session()
     post = db_sess.query(Post).filter(Post.id == post_id).first()
     if post.team_leader != current_user.id:
-        abort(403)
+        flash('У вас нет прав доступа для выполнения данного действия', "alert-danger")
+        return redirect('/')
     try:
         os.unlink(
             os.path.join(current_app.root_path,
@@ -304,8 +313,24 @@ def delete_post(post_id):
         db_sess.delete(post)
 
     db_sess.commit()
-    flash('Данный пост был удален', 'success')
+    flash('Данный пост был удален', 'alert-success')
     return redirect('/')
+
+
+@app.route('/comment_delete/<int:com_id>', methods=['POST', 'GET'])
+@login_required
+def delete_comment(com_id):
+    db_sess = db_session.create_session()
+    comment = db_sess.query(Comments).filter(Comments.id == com_id).first()
+    post_id = comment.post_id
+    if comment.user_id != current_user.id:
+        flash('У вас нет прав доступа для выполнения данного действия', "alert-danger")
+        return redirect('/')
+
+    db_sess.delete(comment)
+    db_sess.commit()
+    flash('Данный комментарий был удален', 'alert-success')
+    return redirect('/post/' + str(post_id))
 
 
 @app.route("/job/<int:job_id>", methods=["GET", "POST"])
@@ -348,17 +373,6 @@ def edit_job(job_id):
         else:
             abort(404)
     return render_template("jobs.html", title="Editing a Job", form=form)
-
-
-# @users.route('/user/<string:username>') # посты конкретного пользователя
-# def user_posts(username):
-#     page = request.args.get('page', 1, type=int)
-#     user = User.query.filter_by(username=username).first_or_404()
-#     posts = Post.query.filter_by(author=user) \
-#         .order_by(Post.date_posted.desc()) \
-#         .paginate(page=page, per_page=3)
-#
-#     return render_template('user/user_posts.html', title='Общий блог>', posts=posts, user=user)
 
 
 @app.route("/cookie_test")
