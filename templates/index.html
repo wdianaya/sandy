@@ -1,54 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="header">
+<div class="header" style="text-align: center; margin: 15px">
   <h2>{{title}}</h2>
 </div>
+<div class="container_blog">
+    <div class="blog_content">
+        {% if either %}
+            <h1>{{ either }}</h1>
+        {% else %}
+          {% for item in posts %}
+            <div>
+                <a href="#" style="font-size: 20px">{{item.user.username}}</a>
+                <a style="color: #727272; font-size: 12px;">{{item.start_date.strftime('%d.%m.%Y %H.%M')}}</a>
+                <a href="{{ url_for('look_post', post_id=item.id) }}"><h2>{{item.title}}</h2></a>
+                {% if item.posts|count >= 100 or item %}
+                    <p class="article-content" align="left">{{ item.posts|safe|truncate(250, True) }}
+                {% else %}
+                    <p class="article-content" align="left">{{ item.posts }}</p>
+                {% endif %}
+            </div>
+          {% endfor %}
+        {% endif %}
 
-<div class="row">
-  <div class="leftcolumn">
-    <div class="card">
-        <h2><a href="#">TITLE HEADING</a></h2>
-      <h5>Title description, Dec 7, 2017</h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <p>Some text..</p>
     </div>
-    <div class="card">
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Sep 2, 2017</h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <p>Some text..</p>
-    </div>
-  </div>
-  <div class="rightcolumn" >
-    <div class="card">
-      <h2>About Me</h2>
-      <div class="fakeimg" style="height:100px;">Image</div>
-      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-    </div>
-    <div class="card">
-      <h3>Popular Post</h3>
-      <div class="fakeimg">Image</div><br>
-      <div class="fakeimg">Image</div><br>
-      <div class="fakeimg">Image</div>
-    </div>
-    <div class="card">
-      <h3>Follow Me</h3>
-      <p>Some text..</p>
-    </div>
-  </div>
-</div>
-<div>
-    {% if (current_user.is_authenticated and current_user == item.user) or current_user.id == 1 %}
-        <div>
-            <a href="/job/{{ item.id }}" class="btn btn-warning">
-                Edit Job
-            </a>
-        <a href="/job_delete/{{ item.id }}" class="btn btn-danger">
-            Delete Job
-        </a>
-        </div>
-    {% endif %}
 </div>
 
 

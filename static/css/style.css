@@ -137,12 +137,6 @@ header {
 
 }
 
-.container {
-  margin: 30px;
-  border: 10px;
-  text-align: center;
-}
-
 .page-footer {
   padding: 1rem;
   background: #333;
@@ -276,52 +270,74 @@ footer {
     padding: 20px;
 }
 
-/* Header/Blog Title */
-.header {
-  padding: 30px;
-  font-size: 40px;
+.container {  /*post*/
+  margin: 30px;
+  border: 10px;
+  background-color: #e6e3e0;
+  border-radius: 15px;
+}
+
+.right_side {
+  float: right;
+}
+
+.ava-time {
+  text-align: left;
+}
+
+.ava-time #time {
+  color: #727272;
+}
+
+.ava-time #ava {
+  font-size: 25px;
+}
+
+.text-body {
+  max-width: 800px;
+  text-align: left;
+}
+
+.text-body h2 {
+  font-size: 35px;
+}
+
+.text-body p {
+  font-size: 20px;
+}
+
+.right_comment_side {
+  font-size: 12px;
+}
+
+#name-p {
+  font-size: 15px;
+}
+
+.body_comment {
+  background-color: #fcfbfa;
+  border-radius: 10px;
   text-align: center;
 }
 
-/* Create two unequal columns that floats next to each other */
-/* Left column */
-.leftcolumn {
-  float: left;
-  width: 75%;
+.post_stat_side {
+  margin: 10px;
 }
 
-/* Right column */
-.rightcolumn {
-  float: left;
-  width: 25%;
-  padding-left: 20px;
+.form-control {
+  margin-bottom: 0px;
 }
 
-/* Fake image */
-.fakeimg {
-  background-color: #aaa;
-  width: 100%;
-  padding: 20px;
+.form-group .btn {
+  margin-top: 0%;
+  margin-bottom: 15px;
 }
 
-/* Add a card effect for articles */
-.card {
-  background-color: white;
-  padding: 20px;
-  margin-top: 20px;
-}
+.container_blog {  /*post*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 800px) {
-  .leftcolumn, .rightcolumn {
-    width: 100%;
-    padding: 0;
-  }
 }

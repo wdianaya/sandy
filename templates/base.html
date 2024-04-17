@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SANDY - Математический форум</title>
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
@@ -19,7 +19,7 @@
             <span class="use">SAN</span>
             <span class="web">DY</span>
           </a>
-          <p>Залупка</p>
+          <p>скоро будет не Залупка</p>
         </div>
         <div class="top-menu">
           <ul>
@@ -30,6 +30,7 @@
         </div>
         <div class="block-top-auth">
           {% if current_user.is_authenticated %}
+          <p><a href="/post" >Создать</a> <a href="/" >Аккаунт</a></p>
           <p><a class="nikname" href="/logout" title="log out">{{ current_user.username }}</a></p>
           {% else %}
 

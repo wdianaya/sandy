@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="" method="post">
+<div class="container">
+    {% if post.user.id == current_user.id %}
+        <div class="right_side">
+                        <a class="btn btn-secondary btn-sm m-2" href="#">Редактировать</a>
+                        <a href="{{url_for('delete_post', post_id=post.id)}}" class="btn btn-danger btn-sm m-1" onclick="return confirm('Вы точно хотите удалит этот пост?')">Удалить</a>
+        </div>
+    {% endif %}
+    <div class="ava-time">
+        <a id="ava">{{post.user.username}}</a> <a id="time">{{post.start_date.strftime('%d.%m.%Y %H.%M')}}</a>
+    </div>
+
+    <center class="text-body">
+        <h2 class="article-title" align="left"> {{ post.title|safe }}</h2>
+        <p class="article-content" align="left" >{{ post.posts|safe}}</p>
+
+        <img src="{{ url_for('static', filename='img/'  + 'post_images/' + post.image_post) }}" alt="post_img"><br>
+    </center>
+    <div class="post_stat_side">
+        <div class="left_side_stat_post">&#128065; {{ post.views }}</div>
+    </div>
+
+    <div class="content_comment">
+        <form method="POST" action="{{url_for('look_post', post_id=post.id)}}">
+            {{ form_comment.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="form-group">
+                    {{ form_comment.text(class="form-control form-control-lg", placeholder="Ваш комментарий") }}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form_comment.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+
+    <div class="comment_side">
+        {% for item in comments %}
+            <div class="single_comment">
+                <div class="head_comment">
+                    <div class="left_comment_side">
+                        <a href="#" id="name-p">{{ item.user.username }}</a>
+                        <a class="right_comment_side">{{ item.start_date.strftime('%d.%m.%Y-%H.%M') }}</a>
+                    </div>
+
+                </div>
+
+                <div class="body_comment">
+                    {{ item.text_com }}
+                </div>
+                <hr />
+
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+</form>
+{% endblock %}

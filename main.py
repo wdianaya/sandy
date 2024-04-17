@@ -1,12 +1,15 @@
 import io
 import base64
 import calc_fft
+from convert_img import save_picture_post
 from data import db_session
 from forms.login import LoginForm
 from forms.register import RegisterForm
+from forms.post_forms import PostForm, Comment
 from data.users import User
 from data.post import Post
-from flask import Flask, render_template, redirect, request, make_response, abort, jsonify
+from data.comments import Comments
+from flask import Flask, render_template, redirect, request, make_response, abort, jsonify, flash, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from forms.main_form import MainForm
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
@@ -15,6 +18,7 @@ from math import *
 import mpld3
 from forms.raspr import RasprForm
 import rand_signal
+import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -29,10 +33,20 @@ def main():
 
 
 @app.route("/", methods=['GET', 'POST'])
-def home():
+@app.route("/forum")
+def forum():
     session = db_session.create_session()
+
     posts = session.query(Post).all()
-    return render_template("index.html", title='Математический форум', posts=posts)
+    if posts:
+        page = request.args.get('page', 1, type=int)
+        # posts = session.query(Post).query.order_by(Post.start_date.desc()).paginate(page=page, per_page=2)
+
+    
+        return render_template("index.html", title='Математический форум',
+                           posts=posts)
+    return render_template("index.html", title='Математический форум', either="Пока ещё не опубликовано ни одного поста")
+    
 
 
 @login_manager.user_loader
@@ -44,6 +58,12 @@ def load_user(user_id):
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
+
+
+@app.errorhandler(500)
+def error_500(error):
+    return make_response(jsonify({'error': 'Were experiencing some trouble on our end.'
+                                           ' Please try again in near future'}), 500)
 
 
 @app.errorhandler(400)
@@ -168,6 +188,132 @@ def login():
                                message="Password or login is incorrect",
                                form=form)
     return render_template('login.html', form=form)
+
+
+@app.route('/post', methods=['GET', 'POST'])
+def adding_post():
+    form = PostForm()
+    if form.validate_on_submit():
+        session = db_session.create_session()
+        post = Post()
+        post.team_leader = current_user.id
+        post.posts = form.content.data
+        post.title = form.title.data
+        if form.picture.data:
+            picture_file = save_picture_post(form.picture.data, post)
+            post.image_post = picture_file
+        post.start_date = datetime.datetime.now()
+        try:
+            session.add(post)
+            session.commit()
+        except Exception as e:
+            ok, message = False, "Error was occurred. Please, try again"
+        else:
+            ok, message = True, ""
+        if ok:
+            flash('Пост был опубликован!', 'success')
+            return redirect('/')
+        # image_file = url_for('static', filename=f'img/post_images/' + current_user.image_file) - для аватарок
+    return render_template("create_post.html", title="New Post", form=form) # image_file=image_file
+
+
+@app.route('/post/<int:post_id>', methods=['GET', 'POST'])
+def look_post(post_id):
+    db_sess = db_session.create_session()
+    form = Comment()
+    comments = db_sess.query(Comments).filter(Comments.post_id == post_id).all()
+    post = db_sess.query(Post).filter(Post.id == post_id).first()
+    if not post:
+        abort(404)
+
+    if request.method == 'POST' and form.validate_on_submit():
+        user_id = current_user.id
+        comment = Comments()
+        comment.user_id = user_id
+        comment.post_id = post_id
+        comment.text_com = form.text.data
+        comment.start_date = datetime.datetime.now()
+        db_sess.add(comment)
+        db_sess.commit()
+        flash('Комментарий к посту был добавлен', "success")
+        return redirect(url_for('look_post', post_id=post.id))
+    # image_file = url_for('static',
+    #                      filename=f'profile_pics/' + 'users/' + post.author.username + '/post_images/' + post.image_post)
+    return render_template('post.html', title=post.title, post=post,
+                           form_comment=form, comments=comments) # image_file=image_file,
+
+
+@app.route('/post_delete/<int:post_id>', methods=['POST', 'GET'])
+@login_required
+def delete_post(post_id):
+    db_sess = db_session.create_session()
+    post = db_sess.query(Post).filter(Post.id == post_id).first()
+    if post.team_leader != current_user.id:
+        abort(403)
+    try:
+        os.unlink(
+            os.path.join(current_app.root_path,
+                         f'static/img/post_images/{post.image_post}'))
+        db_sess.delete(post)
+    except:
+        db_sess.delete(post)
+
+    db_sess.commit()
+    flash('Данный пост был удален', 'success')
+    return redirect('/')
+
+
+@app.route("/job/<int:job_id>", methods=["GET", "POST"])
+@login_required
+def edit_job(job_id):
+    form = JobForm()
+    if request.method == "GET":
+        db_sess = db_session.create_session()
+        job = db_sess.query(Jobs).filter(Jobs.id == job_id).first()
+        if job:
+            if current_user.id != 1 and current_user.id != job.team_leader:
+                abort(403)
+            form.name.data = job.job
+            form.team_leader.data = job.team_leader
+            form.hours.data = job.work_size
+            form.collaborators.data = job.collaborators
+            form.category.data = job.category
+            form.finished.data = job.is_finished
+        else:
+            abort(404)
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        job = db_sess.query(Jobs).filter(Jobs.id == job_id).first()
+        if job:
+            if current_user.id != 1 and current_user.id != job.team_leader:
+                abort(403)
+            job.job = form.name.data
+            job.team_leader = form.team_leader.data
+            job.work_size = form.hours.data
+            job.collaborators = form.collaborators.data
+            job.category = form.category.data
+            if form.finished.data:
+                job.end_date = datetime.datetime.now()
+                job.is_finished = form.finished.data
+            else:
+                job.end_date = None
+                job.is_finished = form.finished.data
+            db_sess.commit()
+            return redirect('/')
+        else:
+            abort(404)
+    return render_template("jobs.html", title="Editing a Job", form=form)
+
+
+# @users.route('/user/<string:username>') # посты конкретного пользователя
+# def user_posts(username):
+#     page = request.args.get('page', 1, type=int)
+#     user = User.query.filter_by(username=username).first_or_404()
+#     posts = Post.query.filter_by(author=user) \
+#         .order_by(Post.date_posted.desc()) \
+#         .paginate(page=page, per_page=3)
+#
+#     return render_template('user/user_posts.html', title='Общий блог>', posts=posts, user=user)
 
 
 @app.route("/cookie_test")

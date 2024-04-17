@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+
+<div style="text-align: center; margin: 20px">
+
+    <form action="" enctype="multipart/form-data" method="post">
+        {{ form.hidden_tag() }}
+        <legend class="legend">{{ title }}</legend>
+
+
+        <div class="invalid-feedback">
+            {% for errors in form.title.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <p>
+            {{ form.title(class="form-control", placeholder="Заголовок") }}<br>
+            {% for error in form.title.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+        {% endfor %}
+        </p>
+        <p>
+            {{ form.content(class="form-control", placeholder="Текст статьи") }}<br>
+            {% for error in form.content.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+        {% endfor %}
+        </p>
+        <p>
+            {{ form.picture.label }}<br>
+            {{ form.picture(class="form-control") }}<br>
+            {% for error in form.picture.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+        {% endfor %}
+        </p>
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    </form>
+</div>
+
+{% endblock %}
