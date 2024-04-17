@@ -7,8 +7,11 @@
 <div class="container">
     {% if post.user.id == current_user.id %}
         <div class="right_side">
-                        <a class="btn btn-secondary btn-sm m-2" href="#">Редактировать</a>
-                        <a href="{{url_for('delete_post', post_id=post.id)}}" class="btn btn-danger btn-sm m-1" onclick="return confirm('Вы точно хотите удалит этот пост?')">Удалить</a>
+                        <a class="btn btn-secondary btn-sm m-2"
+                           href="{{url_for('edit_post', post_id=post.id)}}">Обновить</a>
+                        <a href="{{url_for('delete_post', post_id=post.id)}}"
+                           class="btn btn-danger btn-sm m-1"
+                           onclick="return confirm('Вы точно хотите удалит этот пост?')">Удалить</a>
         </div>
     {% endif %}
     <div class="ava-time">

@@ -132,12 +132,12 @@ def raspredelen():
 
 
         html_rand = mpld3.fig_to_html(rfig)
-        Html_rand = open("raspr.html", "w")
+        Html_rand = open("form_graf/raspr.html", "w")
         Html_rand.write(html_rand)
         Html_rand.close()
 
         html_hist = mpld3.fig_to_html(hfig)
-        Html_hist = open("raspr.html", "w")
+        Html_hist = open("form_graf/raspr.html", "w")
         Html_hist.write(html_hist)
         Html_hist.close()
 
@@ -175,7 +175,7 @@ def mainpage():
                 curve.grid(True)
 
                 html_str = mpld3.fig_to_html(fig)
-                Html_file = open("index.html", "w")
+                Html_file = open("form_graf/index.html", "w")
                 Html_file.write(html_str)
                 Html_file.close()
 
@@ -186,7 +186,7 @@ def mainpage():
                 spectre.plot(abs(y), "ro-")
 
                 html_spec = mpld3.fig_to_html(spectre_fig)
-                Html_spec = open("spec.html", "w")
+                Html_spec = open("form_graf/spec.html", "w")
                 Html_spec.write(html_str)
                 Html_spec.close()
 
@@ -333,46 +333,39 @@ def delete_comment(com_id):
     return redirect('/post/' + str(post_id))
 
 
-@app.route("/job/<int:job_id>", methods=["GET", "POST"])
+@app.route("/post_edit/<int:post_id>", methods=["GET", "POST"])
 @login_required
-def edit_job(job_id):
-    form = JobForm()
+def edit_post(post_id):
+    form = PostForm()
     if request.method == "GET":
         db_sess = db_session.create_session()
-        job = db_sess.query(Jobs).filter(Jobs.id == job_id).first()
-        if job:
-            if current_user.id != 1 and current_user.id != job.team_leader:
-                abort(403)
-            form.name.data = job.job
-            form.team_leader.data = job.team_leader
-            form.hours.data = job.work_size
-            form.collaborators.data = job.collaborators
-            form.category.data = job.category
-            form.finished.data = job.is_finished
+        post = db_sess.query(Post).filter(Post.id == post_id).first()
+        if post:
+            if current_user.id != 1 or current_user.id != post.team_leader:
+                flash('У вас нет прав доступа для выполнения данного действия', "alert-danger")
+                return redirect('/')
+            form.title.data = post.title
+            form.content.data = post.posts
         else:
             abort(404)
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        job = db_sess.query(Jobs).filter(Jobs.id == job_id).first()
-        if job:
+        post = db_sess.query(Post).filter(Post.id == post_id).first()
+        if post:
+            post_id = post.post_id
             if current_user.id != 1 and current_user.id != job.team_leader:
                 abort(403)
-            job.job = form.name.data
-            job.team_leader = form.team_leader.data
-            job.work_size = form.hours.data
-            job.collaborators = form.collaborators.data
-            job.category = form.category.data
-            if form.finished.data:
-                job.end_date = datetime.datetime.now()
-                job.is_finished = form.finished.data
-            else:
-                job.end_date = None
-                job.is_finished = form.finished.data
+            post.title = form.title.data
+            post.posts = form.content.data
+
+            if form.picture.data:
+                post.image_post = save_picture_post(form.picture.data, post)
             db_sess.commit()
-            return redirect('/')
+            flash('Данный пост был обновлён', 'success')
+            return redirect('/post/' + str(post_id))
         else:
             abort(404)
-    return render_template("jobs.html", title="Editing a Job", form=form)
+    return render_template("create_post.html", title="Edit Post", form=form)
 
 
 @app.route("/cookie_test")
