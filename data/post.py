@@ -18,3 +18,7 @@ class Post(SqlAlchemyBase, SerializerMixin):
     views = sqlalchemy.Column(sqlalchemy.Integer, default=0)
     image_post = sqlalchemy.Column(sqlalchemy.String(50), nullable=False, default='default.jpg')
     start_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
+
+
+    def __repr__(self):
+        return f'<Post> {self.id} {self.title} {self.posts}'

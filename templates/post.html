@@ -24,9 +24,7 @@
 
         <img src="{{ url_for('static', filename='img/'  + 'post_images/' + post.image_post) }}" alt=""><br>
     </center>
-    <div class="post_stat_side">
-        <div class="left_side_stat_post">&#128065; {{ post.views }}</div>
-    </div>
+
 
     <div class="content_comment">
         <form method="POST" action="{{url_for('look_post', post_id=post.id)}}">

@@ -20,5 +20,4 @@ def uravn(ur):
     uravn = Eq(sympify(ur.split('=')[0]), sympify(ur.split('=')[1]))
     return solve(uravn, (x))
 
-print(uravn('x**4 + x ** 3 + x**2 + x=30'))
 

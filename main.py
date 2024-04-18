@@ -6,6 +6,7 @@ from data import db_session
 from forms.login import LoginForm
 from forms.register import RegisterForm
 from forms.post_forms import PostForm, Comment
+from forms.uravn_form import UravnForm
 from data.users import User
 from data.post import Post
 from data.comments import Comments
@@ -13,12 +14,14 @@ from flask import Flask, render_template, redirect, request, make_response, abor
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from forms.main_form import MainForm
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from flask_paginate import Pagination, get_page_args, get_parameter
 from matplotlib.figure import Figure
 from math import *
 import mpld3
 from forms.raspr import RasprForm
 import rand_signal
 import datetime
+import uravneniya
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -28,24 +31,37 @@ login_manager.init_app(app)
 
 def main():
     db_session.global_init("db/sandy.db")
-    db_sess = db_session.create_session()
     app.run(port=8000, host='127.0.0.1')
 
 
 @app.route("/", methods=['GET', 'POST'])
-@app.route("/forum")
+@app.route("/forum", methods=['GET', 'POST'])
 def forum():
     session = db_session.create_session()
-
     posts = session.query(Post).all()
     if posts:
-        page = request.args.get('page', 1, type=int)
-        # posts = session.query(Post).query.order_by(Post.start_date.desc()).paginate(page=page, per_page=2)
+        page = request.args.get('page', 1, type=int)  # Получаем номер текущей страницы из параметров запроса
+        per_page = 3  # Количество постов на одной странице
+        total_posts = len(posts)  # Общее количество постов
 
-    
+        start_index = (page - 1) * per_page
+        end_index = min(start_index + per_page, total_posts)
+        posts_on_page = posts[start_index:end_index]
+
+        pagination_info = {
+            'total': total_posts,
+            'page': page,
+            'per_page': per_page,
+            'pages': total_posts // per_page + (1 if total_posts % per_page > 0 else 0)
+        }
+
+        total_pages = total_posts // per_page + (1 if total_posts % per_page > 0 else 0)
+        
         return render_template("index.html", title='Математический форум',
-                           posts=posts)
-    return render_template("index.html", title='Математический форум', either="Пока ещё не опубликовано ни одного поста")
+                           posts=posts_on_page, total_pages=total_pages, page=page)
+
+    return render_template("index.html", title='Математический форум',
+                           either="Пока ещё не опубликовано ни одного поста")
     
 
 
@@ -57,18 +73,21 @@ def load_user(user_id):
 
 @app.errorhandler(404)
 def not_found(error):
-    return make_response(jsonify({'error': 'Not found'}), 404)
+    return render_template('404.html'), 404
 
 
 @app.errorhandler(500)
 def error_500(error):
-    return make_response(jsonify({'error': 'Were experiencing some trouble on our end.'
-                                           ' Please try again in near future'}), 500)
+    return render_template('500.html'), 500
 
 
 @app.errorhandler(400)
 def bad_request(_):
-    return make_response(jsonify({'error': 'Bad Request'}), 400)
+    return render_template('400.html'), 400
+
+@app.errorhandler(403)
+def bad_request(_):
+    return render_template('400.html'), 403
 
 
 @app.route('/logout')
@@ -76,6 +95,28 @@ def bad_request(_):
 def logout():
     logout_user()
     return redirect("/")
+
+
+@app.route("/uravn", methods=['GET', 'POST'])
+def uravn():
+    form = UravnForm()
+    if form.validate_on_submit():
+        zadacha = str(request.form['uravns'])
+        if len(zadacha.split(';')) == 1:
+            solve = uravneniya.uravn(zadacha)
+            output = solve
+        elif len(zadacha.split(';')) == 2:
+            zadacha2 = zadacha.split(';')
+            solve = uravneniya.system_double(zadacha2)
+            output = solve
+        elif len(zadacha.split(';')) == 3:
+            zadacha3 = zadacha.split(';')
+            solve = uravneniya.system_triple(zadacha3)
+            output = solve
+
+        return render_template('uravn.html', answer=output, form=form)
+
+    return render_template('uravn.html', form=form)
 
 
 @app.route("/raspr", methods=['GET', 'POST'])
@@ -128,7 +169,6 @@ def raspredelen():
             rasp.plot(y, "ro-")
             rasp.grid(True)
             hist.hist(y)
-
 
 
         html_rand = mpld3.fig_to_html(rfig)
@@ -239,31 +279,33 @@ def login():
 @app.route('/post', methods=['GET', 'POST'])
 def adding_post():
     form = PostForm()
-    if form.validate_on_submit():
-        session = db_session.create_session()
-        post = Post()
-        post.team_leader = current_user.id
-        post.posts = form.content.data
-        post.title = form.title.data
-        if form.picture.data:
-            picture_file = save_picture_post(form.picture.data, post)
-            post.image_post = picture_file
-        post.start_date = datetime.datetime.now()
-        try:
-            session.add(post)
-            session.commit()
-        except Exception as e:
-            ok, message = False, "Error was occurred. Please, try again"
-        else:
-            ok, message = True, ""
-        if ok:
-            flash('Пост был опубликован!', 'alert-success')
-            return redirect('/')
-        else:
-            flash('Произошла ошибка при создании поста. Попробуйте ещё раз', 'alert-danger')
-            return
-        # image_file = url_for('static', filename=f'img/post_images/' + current_user.image_file) - для аватарок
-    return render_template("create_post.html", title="New Post", form=form) # image_file=image_file
+    if current_user.is_authenticated:
+        if form.validate_on_submit():
+            session = db_session.create_session()
+            post = Post()
+            post.team_leader = current_user.id
+            post.posts = form.content.data
+            post.title = form.title.data
+            if form.picture.data:
+                picture_file = save_picture_post(form.picture.data, post)
+                post.image_post = picture_file
+            post.start_date = datetime.datetime.now()
+            try:
+                session.add(post)
+                session.commit()
+            except Exception as e:
+                ok, message = False, "Error was occurred. Please, try again"
+            else:
+                ok, message = True, ""
+            if ok:
+                return redirect('/')
+            else:
+                flash('Произошла ошибка при создании поста. Попробуйте ещё раз', 'alert-danger')
+                return redirect('/')
+            # image_file = url_for('static', filename=f'img/post_images/' + current_user.image_file) - для аватарок
+        return render_template("create_post.html", title="New Post", form=form)  # image_file=image_file
+    flash('Вы должны быть авторизированы, чтобы оставлять вопросы на SANDY', "alert-warning")
+    return redirect('/register')
 
 
 @app.route('/post/<int:post_id>', methods=['GET', 'POST'])
@@ -313,7 +355,6 @@ def delete_post(post_id):
         db_sess.delete(post)
 
     db_sess.commit()
-    flash('Данный пост был удален', 'alert-success')
     return redirect('/')
 
 
@@ -352,7 +393,7 @@ def edit_post(post_id):
         db_sess = db_session.create_session()
         post = db_sess.query(Post).filter(Post.id == post_id).first()
         if post:
-            post_id = post.post_id
+            post_id = post.id
             if current_user.id != 1 and current_user.id != job.team_leader:
                 abort(403)
             post.title = form.title.data

@@ -26,10 +26,17 @@
             {% endfor %}
             </p>
             <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-            <div >{{ html_hist | safe }}</div>
-
+            {% if html_rand %}
+                <div>
+                    <a>Гистограмма</a>
+                    {{ html_hist | safe }}
+                </div>
+            {% endif %}
         </form>
     </div>
-    <div style="margin: 10px" >{{ html_rand | safe }}</div>
+        <div style="margin: 10px" >
+
+            {{ html_rand | safe }}
+        </div>
 </div>
 {% endblock %}

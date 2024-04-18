@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{ cat }}">{{ msg }}</div>
+{% endfor %}
+
+ <form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.uravns.label }}<br>
+        {{ form.uravns(class="form-control") }}<br>
+        {% for error in form.uravns.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+    {% endfor %}
+    </p>
+     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+ </form>
+<div>
+    {%  for item in answer %}
+        <a>{{ item }}</a><br>
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}

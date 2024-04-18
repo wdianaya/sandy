@@ -335,11 +335,15 @@ footer {
 
 .container_blog {  /*post*/
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
+    margin-top: 15px;
+}
 
+.post-content {
+ /*   border: 1px solid #3f3f3f;
+    border-radius: 40px; */
+    padding: 20px 10px 10px 10px;
+    margin: 5px;
+    width: 60%;
 }
 
 .flash{
@@ -355,3 +359,31 @@ footer {
     border: 1px solid #FF4343;
     background: #FF9C9C;
 }
+
+.container .header .btn {
+  background-color: teal;
+  color: #fff;
+  transition: all .7s;
+  float: right;
+}
+.container .header .btn:hover {
+  color: teal;
+  background-color: #fff;
+  border-color: teal;
+}
+
+.content_comment {
+    margin-top: 20px;
+}
+
+.content_comment .form-group .btn {
+    color: teal;
+    border-color: teal;
+}
+
+.content_comment .form-group .btn:hover {
+    color: #fff;
+    border-color: teal;
+    background-color: teal;
+}
+

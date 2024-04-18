@@ -25,14 +25,13 @@
         <div class="top-menu">
           <ul>
             <li><a href="/graf">Построение графиков</a></li>
-            <li><a href="#">Решение уравнений</a></li>
+            <li><a href="/uravn">Решение уравнений</a></li>
             <li><a href="/raspr">График случайных распредлений</a></li>
           </ul>
         </div>
         <div class="block-top-auth">
           {% if current_user.is_authenticated %}
-          <p><a href="/post" >Создать</a> <a href="/" >Аккаунт</a></p>
-          <p><a class="nikname" href="/logout" title="log out">{{ current_user.username }}</a></p>
+          <a class="nikname" href="/logout" title="log out">{{ current_user.username }}</a></p>
           {% else %}
 
           <p><a href="/register" >Регистрация</a></p>  <!--class="btn btn-outline-success"-->

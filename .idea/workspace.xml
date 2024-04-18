@@ -4,9 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a58db9b-763b-451d-b660-704ad21174ef" name="Changes" comment="graf">
+    <list default="true" id="9a58db9b-763b-451d-b660-704ad21174ef" name="Changes" comment="post form">
+      <change afterPath="$PROJECT_DIR$/db/sandy.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/forms/uravn_form.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/post_images/1ba25196c42dc34ebad8ad8de71aecae.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/post_images/896b1b3e8bd209c8566b5396ecadd557.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/post_images/9d4940580ec9785b9c2c833e2a47e28a.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/400.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/403.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/404.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/500.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/uravn.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/post.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/post.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/users.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/form_graf/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/form_graf/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/form_graf/raspr.html" beforeDir="false" afterPath="$PROJECT_DIR$/form_graf/raspr.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/form_graf/spec.html" beforeDir="false" afterPath="$PROJECT_DIR$/form_graf/spec.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/forms/main_form.py" beforeDir="false" afterPath="$PROJECT_DIR$/forms/main_form.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/forms/raspr.py" beforeDir="false" afterPath="$PROJECT_DIR$/forms/raspr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/raspr.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/raspr.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uravneniya.py" beforeDir="false" afterPath="$PROJECT_DIR$/uravneniya.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,7 +244,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713379153007</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="post form">
+      <option name="closed" value="true" />
+      <created>1713452413349</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1713452413349</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -243,6 +276,7 @@
     <MESSAGE value="педро педро педро" />
     <MESSAGE value="flash" />
     <MESSAGE value="graf" />
-    <option name="LAST_COMMIT_MESSAGE" value="graf" />
+    <MESSAGE value="post form" />
+    <option name="LAST_COMMIT_MESSAGE" value="post form" />
   </component>
 </project>
