@@ -14,7 +14,6 @@ from flask import Flask, render_template, redirect, request, make_response, abor
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from forms.main_form import MainForm
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from flask_paginate import Pagination, get_page_args, get_parameter
 from matplotlib.figure import Figure
 from math import *
 import mpld3
@@ -61,8 +60,7 @@ def forum():
                            posts=posts_on_page, total_pages=total_pages, page=page)
 
     return render_template("index.html", title='Математический форум',
-                           either="Пока ещё не опубликовано ни одного поста")
-    
+                           either="Пока ещё не опубликовано ни одного поста", total_pages=0)
 
 
 @login_manager.user_loader
@@ -114,7 +112,7 @@ def uravn():
             solve = uravneniya.system_triple(zadacha3)
             output = solve
 
-        return render_template('uravn.html', answer=output, form=form)
+        return render_template('uravn.html', answer=output, form=form, tip=len(zadacha.split(';')))
 
     return render_template('uravn.html', form=form)
 

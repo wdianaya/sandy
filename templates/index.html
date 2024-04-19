@@ -7,40 +7,43 @@
         <a href="/post" class="btn" style="margin-top: 5px;"><i class='bx bx-plus'></i> Adding post</a>
         <h2>{{title}}</h2>
     </div>
-
-    {% if posts %}
-        <div class="container_blog">
-            <div class="blog_content">
-              {% for item in posts %}
-                <div class="post-content">
-                    <a style="font-size: 20px; color: black;">{{item.user.username}}</a>
-                    <a style="color: #727272; font-size: 12px;">{{item.start_date.strftime('%d.%m.%Y %H.%M')}}</a>
-                    <a href="{{ url_for('look_post', post_id=item.id) }}"><h2>{{item.title}}</h2></a>
-                    {% if item.posts|count >= 100 or item %}
-                        <p class="article-content" align="left">{{ item.posts|safe|truncate(250, True) }}
-                    {% else %}
-                        <p class="article-content" align="left">{{ item.posts }}</p>
-                    {% endif %}
-                    <hr />
+    {% if either %}
+        <div style="background-color: #fff; text-align: center;"><h3>{{ either}}</h3></div>
+    {% else %}
+        {% if posts %}
+            <div class="container_blog">
+                <div class="blog_content">
+                  {% for item in posts %}
+                    <div class="post-content">
+                        <a style="font-size: 20px; color: black;">{{item.user.username}}</a>
+                        <a style="color: #727272; font-size: 12px;">{{item.start_date.strftime('%d.%m.%Y %H.%M')}}</a>
+                        <a href="{{ url_for('look_post', post_id=item.id) }}"><h2>{{item.title}}</h2></a>
+                        {% if item.posts|count >= 100 or item %}
+                            <p class="article-content" align="left">{{ item.posts|safe|truncate(250, True) }}
+                        {% else %}
+                            <p class="article-content" align="left">{{ item.posts }}</p>
+                        {% endif %}
+                        <hr />
+                    </div>
+                  {% endfor %}
                 </div>
-              {% endfor %}
             </div>
-        </div>
-    {% endif %}
+        {% endif %}
 
-    <nav aria-label="Page navigation example" style="float: left; margin-bottom: 10px; text-align: center; ">
-      <ul class="pagination justify-content-center">
-        {% for page_num in range(1, total_pages + 1) %}
-          {% if page_num == page %}
-            <li class="page-item active"><a class="page-link" href="{{ url_for('forum', page=page_num) }}"
-                                            style="background-color: teal; border-color: teal;">{{ page_num }}</a></li>
-          {% else %}
-            <li class="page-item"><a class="page-link" href="{{ url_for('forum', page=page_num) }}"
-                                     style="color: black">{{ page_num }}</a></li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    </nav>
+        <nav aria-label="Page navigation example" style="float: left; margin-bottom: 10px; text-align: center; ">
+          <ul class="pagination justify-content-center">
+            {% for page_num in range(1, total_pages + 1) %}
+              {% if page_num == page %}
+                <li class="page-item active"><a class="page-link" href="{{ url_for('forum', page=page_num) }}"
+                                                style="background-color: teal; border-color: teal;">{{ page_num }}</a></li>
+              {% else %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('forum', page=page_num) }}"
+                                         style="color: black">{{ page_num }}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </nav>
+    {% endif %}
 </div>
 
 

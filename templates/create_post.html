@@ -3,44 +3,46 @@
 {% block content %}
 
 <div style="text-align: center; margin: 20px">
+    <div class="container" style="text-align: center; padding: 10px;">
 
-    <form action="" enctype="multipart/form-data" method="post">
-        {{ form.hidden_tag() }}
-        <legend class="legend">{{ title }}</legend>
+        <form action="" enctype="multipart/form-data" method="post">
+            {{ form.hidden_tag() }}
+            <h2 class="legend" style="margin: 10px;">{{ title }}</h2>
 
 
-        <div class="invalid-feedback">
-            {% for errors in form.title.errors %}
-            <span>{{ error }}</span>
+            <div class="invalid-feedback">
+                {% for errors in form.title.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            <p>
+                {{ form.title(class="form-control", placeholder="Заголовок") }}<br>
+                {% for error in form.title.errors %}
+                    <p class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </p>
             {% endfor %}
-        </div>
-        <p>
-            {{ form.title(class="form-control", placeholder="Заголовок") }}<br>
-            {% for error in form.title.errors %}
-                <p class="alert alert-danger" role="alert">
-                    {{ error }}
-                </p>
-        {% endfor %}
-        </p>
-        <p>
-            {{ form.content(class="form-control", placeholder="Текст статьи") }}<br>
-            {% for error in form.content.errors %}
-                <p class="alert alert-danger" role="alert">
-                    {{ error }}
-                </p>
-        {% endfor %}
-        </p>
-        <p>
-            {{ form.picture.label }}<br>
-            {{ form.picture(class="form-control") }}<br>
-            {% for error in form.picture.errors %}
-                <p class="alert alert-danger" role="alert">
-                    {{ error }}
-                </p>
-        {% endfor %}
-        </p>
-        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-    </form>
+            </p>
+            <p>
+                {{ form.content(class="form-control", placeholder="Текст статьи") }}<br>
+                {% for error in form.content.errors %}
+                    <p class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </p>
+            {% endfor %}
+            </p>
+            <p >
+                <a style="float: left; margin-top: -20px; margin-left: 20px;">{{ form.picture.label }}</a><br>
+                {{ form.picture(class="form-control") }}<br>
+                {% for error in form.picture.errors %}
+                    <p class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </p>
+            {% endfor %}
+            </p>
+            <p>{{ form.submit(type="submit", class="button-graf") }}</p>
+        </form>
+    </div>
 </div>
 
 {% endblock %}
