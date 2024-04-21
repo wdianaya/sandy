@@ -4,46 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a58db9b-763b-451d-b660-704ad21174ef" name="Changes" comment="все в общем">
-      <change afterPath="$PROJECT_DIR$/flask_app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/.idea/flaskproject.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/.idea/shelf/Uncommitted_changes_before_Update_at_10_04_2024_17_36_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/.idea/shelf/Uncommitted_changes_before_Update_at_10_04_2024_17_36__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/.idea/shelf/Uncommitted_changes_before_Update_at_10_04_2024_18_09_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/.idea/shelf/Uncommitted_changes_before_Update_at_10_04_2024_18_09__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/.idea/shelf/Uncommitted_changes_before_Update_at_15_04_2024_18_17_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/.idea/shelf/Uncommitted_changes_before_Update_at_15_04_2024_18_17__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/calc_fft.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/data/all_models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/data/db_session.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/data/post.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/data/users.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/forms/login.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/forms/main_form.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/forms/register.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/rand_signal.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/search_info.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/spec.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/static/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/templates/base.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/templates/main.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SOM-master/uravneniya.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/sandy.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/form_graf/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/form_graf/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/form_graf/raspr.html" beforeDir="false" afterPath="$PROJECT_DIR$/form_graf/raspr.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/form_graf/spec.html" beforeDir="false" afterPath="$PROJECT_DIR$/form_graf/spec.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+    <list default="true" id="9a58db9b-763b-451d-b660-704ad21174ef" name="Changes" comment="waitress, db">
+      <change afterPath="$PROJECT_DIR$/db/sandy.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -304,7 +266,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713540915417</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="waitress, db">
+      <option name="closed" value="true" />
+      <created>1713710690438</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1713710690438</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -331,6 +301,7 @@
     <MESSAGE value="post form" />
     <MESSAGE value="уравнения и post" />
     <MESSAGE value="все в общем" />
-    <option name="LAST_COMMIT_MESSAGE" value="все в общем" />
+    <MESSAGE value="waitress, db" />
+    <option name="LAST_COMMIT_MESSAGE" value="waitress, db" />
   </component>
 </project>
