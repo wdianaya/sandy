@@ -1,6 +1,6 @@
 Flask==3.0.3
 flask_login==0.6.3
-flask_paginate==2024.4.12
+waitress==3.0.0
 flask_wtf==1.2.1
 matplotlib==3.8.4
 mpld3==0.5.10

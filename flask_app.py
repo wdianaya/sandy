@@ -1,26 +1,35 @@
 import io
 import base64
 import calc_fft
+
 from convert_img import save_picture_post
 from data import db_session
+
 from forms.login import LoginForm
 from forms.register import RegisterForm
 from forms.post_forms import PostForm, Comment
 from forms.uravn_form import UravnForm
+from forms.main_form import MainForm
+
 from data.users import User
 from data.post import Post
 from data.comments import Comments
+
 from flask import Flask, render_template, redirect, request, make_response, abort, jsonify, flash, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-from forms.main_form import MainForm
+from waitress import serve
+
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
-from math import *
+
 import mpld3
-from forms.raspr import RasprForm
 import rand_signal
 import datetime
 import uravneniya
+
+from forms.raspr import RasprForm
+from math import *
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -30,6 +39,7 @@ login_manager.init_app(app)
 
 def main():
     db_session.global_init("db/sandy.db")
+    # serve(app)
     app.run(port=8000, host='127.0.0.1')
 
 
